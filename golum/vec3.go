@@ -3,7 +3,7 @@ package golum
 import "math"
 
 type Vec3 struct {
-	x, y, z float64
+	X, Y, Z float64
 }
 
 func V(x, y, z float64) Vec3 {
@@ -15,43 +15,43 @@ func VFrom(val float64) Vec3 {
 }
 
 func (v Vec3) AddVec(other Vec3) Vec3 {
-	return V(v.x+other.x, v.y+other.y, v.z+other.z)
+	return V(v.X+other.X, v.Y+other.Y, v.Z+other.Z)
 }
 
 func (v Vec3) SubVec(other Vec3) Vec3 {
-	return V(v.x-other.x, v.y-other.y, v.z-other.z)
+	return V(v.X-other.X, v.Y-other.Y, v.Z-other.Z)
 }
 
 func (v Vec3) MulVec(other Vec3) Vec3 {
-	return V(v.x*other.x, v.y*other.y, v.z*other.z)
+	return V(v.X*other.X, v.Y*other.Y, v.Z*other.Z)
 }
 
 func (v Vec3) DivVec(other Vec3) Vec3 {
-	return V(v.x/other.x, v.y/other.y, v.z/other.z)
+	return V(v.X/other.X, v.Y/other.Y, v.Z/other.Z)
 }
 
 func (v Vec3) AddScalar(val float64) Vec3 {
-	return V(v.x+val, v.y+val, v.z+val)
+	return V(v.X+val, v.Y+val, v.Z+val)
 }
 
 func (v Vec3) SubScalar(val float64) Vec3 {
-	return V(v.x-val, v.y-val, v.z-val)
+	return V(v.X-val, v.Y-val, v.Z-val)
 }
 
 func (v Vec3) MulScalar(val float64) Vec3 {
-	return V(v.x*val, v.y*val, v.z*val)
+	return V(v.X*val, v.Y*val, v.Z*val)
 }
 
 func (v Vec3) DivScalar(val float64) Vec3 {
-	return V(v.x/val, v.y/val, v.z/val)
+	return V(v.X/val, v.Y/val, v.Z/val)
 }
 
 func (v Vec3) Cross(other Vec3) Vec3 {
-	return V(v.y*other.z-v.z*other.y, v.z*other.x-v.x*other.z, v.x*other.y-v.y*other.x)
+	return V(v.Y*other.Z-v.Z*other.Y, v.Z*other.X-v.X*other.Z, v.X*other.Y-v.Y*other.X)
 }
 
 func (v Vec3) Dot(other Vec3) float64 {
-	return v.x*other.x + v.y*other.y + v.z*other.z
+	return v.X*other.X + v.Y*other.Y + v.Z*other.Z
 }
 
 func (v Vec3) NormSquared() float64 {
@@ -65,4 +65,8 @@ func (v Vec3) Norm() float64 {
 func (v Vec3) Normalize() Vec3 {
 	norm := v.Norm()
 	return v.DivScalar(norm)
+}
+
+func (v Vec3) Abs() Vec3 {
+	return V(math.Abs(v.X), math.Abs(v.Y), math.Abs(v.Z))
 }

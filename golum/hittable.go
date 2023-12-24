@@ -1,6 +1,8 @@
 package golum
 
-import "math"
+import (
+	"math"
+)
 
 type Hittable interface {
 	Intersect() Vec3
@@ -12,11 +14,14 @@ type Sphere struct {
 	radius float64
 }
 
-func (s Sphere) Intersect(ray_d, ray_o Vec3) (bool, float64) {
-	a := ray_d.NormSquared()
-	b_vec := ray_d.MulVec(ray_o.SubVec(s.center))
-	b := 2*b_vec.x + b_vec.y + b_vec.z
-	c := s.center.NormSquared() + ray_o.NormSquared()*s.center.Dot(ray_o) - s.radius*s.radius
+func NewSphere(center Vec3, radius float64) Sphere {
+	return Sphere{center, radius}
+}
+
+func (s Sphere) Intersect(ray Ray) (bool, float64) {
+	a := ray.D.NormSquared()
+	b := 2 * ray.D.Dot(ray.O.SubVec(s.center))
+	c := ray.O.SubVec(s.center).NormSquared() - s.radius*s.radius
 
 	d := b*b - 4*a*c
 	if d < 0 {
