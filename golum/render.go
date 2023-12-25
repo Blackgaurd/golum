@@ -1,7 +1,6 @@
 package golum
 
 import (
-	"fmt"
 	"math/rand"
 )
 
@@ -38,10 +37,6 @@ func Render(width, height int, camera Camera, shapes []Shape, rng *rand.Rand) Im
 		for x := 0; x < width; x++ {
 			ray := camera.GetRay(width, height, x, y, rng)
 			color := trace(ray, shapes, rng, 5)
-			if color.X > 0 {
-				fmt.Println(x, y)
-				fmt.Println(ray)
-			}
 			img.AddData(x, y, color)
 		}
 	}
