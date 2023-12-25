@@ -13,16 +13,16 @@ type Camera struct {
 func LookAt(pos, look_at, up Vec3, fovx float64) Camera {
 	forward := look_at.SubVec(pos)
 	return Camera{
-		pos,
-		forward.Normalize(),
-		up.Normalize(),
-		forward.Cross(up).Normalize(),
-		fovx * math.Pi / 180,
+		pos:     pos,
+		forward: forward.Normalize(),
+		up:      up.Normalize(),
+		right:   forward.Cross(up).Normalize(),
+		fovx:    fovx * math.Pi / 180,
 	}
 }
 
 func (cam Camera) GetRay(w, h, x, y int, rng *rand.Rand) Ray {
-	forward_dis := float64(w) / math.Tan(cam.fovx/2)
+	forward_dis := float64(w) * 0.5 / math.Tan(cam.fovx/2)
 	right_dis := float64(x) - float64(w)/2 + rng.Float64()
 	up_dis := float64(y) - float64(h)/2 + rng.Float64()
 

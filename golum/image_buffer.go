@@ -1,5 +1,7 @@
 package golum
 
+// todo: error in coordinate system
+
 import (
 	"image"
 	"image/color"
@@ -29,10 +31,10 @@ func NewImageBuffer(w, h int) ImageBuffer {
 }
 
 func (buf ImageBuffer) AddData(x, y int, color Vec3) {
-	buf.data[x][y].r += int(color.X * 255)
-	buf.data[x][y].g += int(color.Y * 255)
-	buf.data[x][y].b += int(color.Z * 255)
-	buf.data[x][y].cnt++
+	buf.data[y][x].r += int(color.X * 255)
+	buf.data[y][x].g += int(color.Y * 255)
+	buf.data[y][x].b += int(color.Z * 255)
+	buf.data[y][x].cnt++
 }
 
 func (buf ImageBuffer) toImage() *image.RGBA {
@@ -41,7 +43,7 @@ func (buf ImageBuffer) toImage() *image.RGBA {
 		for j := 0; j < buf.w; j++ {
 			cur := buf.data[i][j]
 			if cur.cnt == 0 {
-				img.Set(i, j, color.RGBA{R: 0, G: 0, B: 0, A: 255})
+				img.Set(j, buf.h-i-1, color.RGBA{R: 0, G: 0, B: 0, A: 255})
 				continue
 			}
 
@@ -49,7 +51,7 @@ func (buf ImageBuffer) toImage() *image.RGBA {
 			g := uint8(cur.g / cur.cnt)
 			b := uint8(cur.b / cur.cnt)
 
-			img.Set(i, j, color.RGBA{R: r, G: g, B: b, A: 255})
+			img.Set(j, buf.h-i-1, color.RGBA{R: r, G: g, B: b, A: 255})
 		}
 	}
 	return img
