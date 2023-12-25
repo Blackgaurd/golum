@@ -70,3 +70,7 @@ func (v Vec3) Normalize() Vec3 {
 func (v Vec3) Abs() Vec3 {
 	return V(math.Abs(v.X), math.Abs(v.Y), math.Abs(v.Z))
 }
+
+func (v Vec3) Neg() Vec3 {
+	return V(-v.X, -v.Y, -v.Z)
+}
